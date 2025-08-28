@@ -129,18 +129,89 @@ void print2(int(*p)[5], int r, int c)
 	}
 }
 
-int main()
-{
-	int arr[3][5] = { 1,2,3,4,5,2,3,4,5,6,3,4,5,6,7 };
-	print2(arr, 3, 5);
-	//arr数组名 表示数组首元素的地址
-	//二维数组的首元素是他的第一行
-	//第一行的地址，是一个一维数组的地址
-	return 0;
-}
+//int main()
+//{
+//	int arr[3][5] = { 1,2,3,4,5,2,3,4,5,6,3,4,5,6,7 };
+//	print2(arr, 3, 5);
+//	//arr数组名 表示数组首元素的地址
+//	//二维数组的首元素是他的第一行
+//	//第一行的地址，是一个一维数组的地址
+//	return 0;
+//}
 
 //int arr[5] arr是整型数组
 //int* arr1[5] arr1是整型指针数组
 //int (*parr2) [10] parr2是数组指针
 //int (*parr3[10])[5] parr3是存放数组指针的数组
 
+
+//数组传参和指针传参
+
+//一维数组传参
+//void test (int arr[])
+//{}
+//void test (int arr[10])
+//{}
+//void test (int* arr)
+//{}
+//
+//void test2 (int* arr[20])
+//{}
+//void test2 (int** arr)
+//{}
+//
+//int main()
+//{
+//	int arr[10] = { 0 };
+//	int* arr2[10] = { 0 };
+//	test(arr);
+//	test2(arr2);
+//	return 0;
+//}
+
+
+//二维数组传参
+
+//void test (int arr[3][5])
+//{}
+//void test (int arr[][]) //err 形参的二维数组，行可以省略，列不能省略！
+//{}
+//void test (int arr [][5])
+//{}
+//
+//void test(int (*arr)[5])
+//{}
+//
+//int main()
+//{
+//	int arr[3][5] = { 0 };
+//	test(arr);
+//	return 0;
+//}
+
+int Add(int x, int y)
+{
+	return x + y;
+}
+
+int main()
+{
+	int arr[5] = { 0 };
+	//&数组名-取出的是数组的地址
+	int(*p)[5] = &arr;//数组指针
+
+	printf("%p\n", &Add);
+	printf("%p\n", Add);
+	//对于函数来说，&函数名和函数名都是函数的地址
+
+	int(*pf)(int, int) = &Add;
+
+	int ret = (*pf)(2, 3);
+	int ret = pf(2, 3);
+
+	//int ret = Add(2, 3);
+
+	printf("%d\n", ret);
+
+	return 0;
+}
