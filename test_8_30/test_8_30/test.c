@@ -1,6 +1,8 @@
 #define  _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 //int main()
 //{
@@ -288,7 +290,127 @@ typedef void(* pf_t)(int); //把void(*)(int)类型重命名为pf_t
 
 //冒泡排序
 
-void bubble_sort(int arr[], int sz)
+//void bubble_sort(int arr[], int sz)
+//{
+//	int i = 0;
+//	//趟数
+//	for (i = 0; i < sz - 1; i++)
+//	{
+//		int flag = 1;//设置标志位来判断数组是否已经排好序
+//		//一趟冒泡排序的过程
+//		int j = 0;
+//		for (j = 0; j < sz -1 -i; j++)
+//		{
+//			if (arr[j] > arr[j + 1])
+//			{
+//				int tmp = arr[j];
+//				arr[j] = arr[j + 1];
+//				arr[j + 1] = tmp;
+//				flag = 0;//表示数组顺序有变化
+//			}
+//		}
+//		if (flag == 1)
+//		{
+//			break;//如果标志位为1表示数组初始顺序没变，已排好顺序，跳出循环
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int arr[] = { 9,8,7,6,5,4,3,2,1,0 };
+//	//把数组排成升序
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	bubble_sort(arr, sz);
+//	int i = 0;
+//	for (i = 0; i < sz; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	return 0;
+//}
+
+//qsort  这个函数可以排序任意类型的数据
+//
+
+void qsort(
+	void* base,//你要排序的数据的起始位置
+	size_t num,//待排序的数据元素的个数
+	size_t width,//待排序的数据元素的大小（单位是字节）
+	int(*cmp)(const void* e1, const void* e2)//函数指针-比较函数
+);
+
+
+int cmp_int(const void* e1, const void* e2)
+{
+	//if (*e1 > *e2)
+	//	return 1;
+	//else if (*e1 == *e2)
+	//	return 0;
+	//else
+	//	return -1;
+	return (*(int*)e1 - *(int*)e2);
+}
+
+void test1()
+{
+	int arr[] = { 9,8,7,6,5,4,3,2,1,0 };
+	//把数组排成升序
+	int sz = sizeof(arr) / sizeof(arr[0]);
+
+
+	//bubble_sort(arr, sz);
+
+	qsort(arr, sz, sizeof(arr[0]), cmp_int); //回调函数的使用
+
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+}
+
+struct Stu
+{
+	char name[20];
+	int age;
+};
+
+int cmp_stu_by_name(const void* e1, const void* e2)
+{
+	return strcmp(((struct Stu*)e1)->name, ((struct Stu*)e2)->name);
+}
+
+int cmp_stu_by_age(const void* e1, const void* e2)
+{
+	return (((struct Stu*)e1)->age - ((struct Stu*)e2)->age);
+}
+
+void test2()
+{
+	//测试使用qsort来排序结构体数据
+	struct Stu arr[] = { {"zhangsan", 15}, {"lisi", 30}, {"wangwu", 25} };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	//qsort(arr, sz, sizeof(arr[0]), cmp_stu_by_name);
+	qsort(arr, sz, sizeof(arr[0]), cmp_stu_by_age);
+
+}
+
+void Swap(char* buf1, char* buf2, int width)
+{
+	int i = 0;
+	for (i = 0; i < width; i++)
+	{
+		char tmp = *buf1;
+		*buf1 = *buf2;
+		*buf2 = tmp;
+		buf1++;
+		buf2++;
+	}
+}
+
+//模仿实现qsort函数
+void bubble_sort(void* base, int sz, int width, int(*cmp)(const void*e1, const void*e2))
 {
 	int i = 0;
 	//趟数
@@ -297,14 +419,13 @@ void bubble_sort(int arr[], int sz)
 		int flag = 1;//设置标志位来判断数组是否已经排好序
 		//一趟冒泡排序的过程
 		int j = 0;
-		for (j = 0; j < sz -1 -i; j++)
+		for (j = 0; j < sz - 1 - i; j++)
 		{
-			if (arr[j] > arr[j + 1])
+			if (cmp((char*)base + j * width, (char*)base + (j + 1) * width) > 0)
 			{
-				int tmp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = tmp;
-				flag = 0;//表示数组顺序有变化
+				//交换
+				Swap((char*)base + j * width, (char*)base + (j + 1) * width, width);
+				flag = 0;
 			}
 		}
 		if (flag == 1)
@@ -314,16 +435,41 @@ void bubble_sort(int arr[], int sz)
 	}
 }
 
-int main()
+void test3()
 {
 	int arr[] = { 9,8,7,6,5,4,3,2,1,0 };
 	//把数组排成升序
 	int sz = sizeof(arr) / sizeof(arr[0]);
-	bubble_sort(arr, sz);
+
+
+	//bubble_sort(arr, sz);
+
+	bubble_sort(arr, sz, sizeof(arr[0]), cmp_int); //回调函数的使用
+
 	int i = 0;
 	for (i = 0; i < sz; i++)
 	{
 		printf("%d ", arr[i]);
 	}
+}
+
+int main()
+{
+	//test1();
+
+	//test2();
+
+	test3();
+
 	return 0;
 }
+
+//int main()
+//{
+//	int a = 0;
+//	char* pa = &a;//int*
+//	void* pv = &a;//void*是无具体类型的指针，可以接收任意类型的地址
+//	//因为void*是无具体类型的指针，所以不能解引用操作，也不能+-整数
+//	//
+//	return 0;
+//}
