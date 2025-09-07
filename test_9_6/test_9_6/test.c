@@ -149,7 +149,7 @@
 //	strncpy(arr1, arr2, 5);
 //
 //	printf("%s\n", arr1);
-//
+ //
 //	return 0;
 //}
 
@@ -171,3 +171,135 @@
 //
 //	return 0;
 //}
+
+//strstr 查找子串的一个函数
+
+
+char* my_strstr(const char* str1, const char* str2)
+{
+	assert(str1 && str2);
+	const char* s1 = str1;
+	const char* s2 = str2;
+	const char* p = str1;
+	while (*p)
+	{
+		s1 = p;
+		s2 = str2;
+		while (*s1!='\0' && *s2!='\0' && *s1 == *s2) //判断多种情况 两个字符串是否到了末尾 两个字符是否相等
+		{
+			s1++;
+			s2++;
+		}
+		if (*s2 == '\0')
+		{
+			return (char*)p;
+		}
+		p++;
+	}
+	return NULL;
+}
+
+//int main()
+//{
+//	char email[] = "12345.com";
+//	char substr[] = "12345";
+//	char* ret = my_strstr(email, substr);
+//	if (ret == NULL)
+//	{
+//		printf("子串不存在\n");
+//	}
+//	else
+//	{
+//		printf("%s\n", ret);
+//	}
+//	return 0;
+//}
+
+//KMP算法
+//这个算法也是用来实现在一个字符串中查找子字符串的
+//效率高，但是实现难度大
+
+//strtok
+//切割字符串
+
+//int main()
+//{
+//	const char* sep = "@.";
+//	char email[] = "wangbing@12345.com";
+//	char cp[30] = { 0 };
+//	strcpy(cp, email);
+//
+//	//char* ret = strtok(cp, sep);
+//	//printf("%s\n", ret);
+//	//ret = strtok(NULL, sep);
+//	//printf("%s\n", ret);
+//	//ret = strtok(NULL, sep);
+//	//printf("%s\n", ret);
+//
+//	//对上面代码优化
+//	char* ret = NULL;
+//	for (ret = strtok(cp, sep); ret != NULL; ret = strtok(NULL, sep))
+//	{
+//		printf("%s\n", ret);
+//	}
+//
+//	return 0;
+//}
+
+//strerror 返回错误码信息函数
+//C语言的库函数，在执行失败的时候，都会设置错误码
+//0 1 2 3 4 5 
+
+#include <errno.h>
+
+//int main()
+//{
+//	//printf("%s\n", strerror(0));
+//	//printf("%s\n", strerror(1));
+//	//printf("%s\n", strerror(2));
+//	//printf("%s\n", strerror(3));
+//	//printf("%s\n", strerror(4));
+//
+//	//errno - C语言设置的一个全局的错误码存放的变量
+//
+//	FILE* pf = fopen("test1.txt", "r");
+//	if (pf == NULL)
+//	{
+//		printf("%s\n", strerror(errno));
+//		return 1;
+//	}
+//	else
+//	{
+//		//
+//	}
+//	return 0;
+//}
+
+//memcpy 内存拷贝
+
+void* my_memcpy(void* dest, const void* src, size_t num)
+{
+	assert(dest && src);
+	void* ret = dest;
+
+	while (num--)
+	{
+		*(char*)dest = *(char*)src;
+		dest = (char*)dest + 1;
+		src = (char*)src + 1;
+	}
+	return ret;
+}
+
+//memcpy 负责拷贝两块独立空间的数据
+//重叠内存的拷贝，是怎么做的呢？ memmove
+
+int main()
+{
+	int arr1[] = { 1,2,3,4,5 };
+	int arr2[10] = { 0 };
+	//memcpy(arr2, arr1, sizeof(arr1));
+	my_memcpy(arr2, arr1, sizeof(arr1));
+
+	return 0;
+}
