@@ -276,6 +276,7 @@ char* my_strstr(const char* str1, const char* str2)
 //}
 
 //memcpy 内存拷贝
+//memmove 加强版内存拷贝
 
 void* my_memcpy(void* dest, const void* src, size_t num)
 {
@@ -294,12 +295,73 @@ void* my_memcpy(void* dest, const void* src, size_t num)
 //memcpy 负责拷贝两块独立空间的数据
 //重叠内存的拷贝，是怎么做的呢？ memmove
 
+void* my_memmove(void* dest, const void* src, size_t num)
+{
+	assert(dest && src);
+	void* ret = dest;
+
+	if (dest < src)//从前向后拷贝
+	{
+		while (num--)
+		{
+			*(char*)dest = *(char*)src;
+			dest = (char*)dest + 1;
+			src = (char*)src + 1;
+		}
+	}
+	else//从后向前拷贝
+	{
+		while (num--)
+		{
+			*((char*)dest + num) = *((char*)src + num);
+		}
+	}
+	return ret;
+}
+
+
+
+//int main()
+//{
+//	int arr1[] = { 1,2,3,4,5,6,7,8,9,10 };
+//	int arr2[10] = { 0 };
+//	//memcpy(arr2, arr1, sizeof(arr1));
+//	//my_memcpy(arr2, arr1, sizeof(arr1));
+//	//my_memcpy(arr1 + 2, arr1, 20);
+//
+//	//memmove(arr1 + 2, arr1, 20);
+//	my_memmove(arr1, arr1+2, 20);
+//
+//	int i = 0;
+//	for (i = 0; i < 10; i++)
+//	{
+//		printf("%d ", arr1[i]);
+//	}
+//	return 0;
+//}
+
+//memcmp 内存比较
+
+//int main()
+//{
+//	int arr1[] = { 1,2,3,4,5 };
+//	int arr2[] = { 1,3,2 };
+//	int ret = memcmp(arr1, arr2, 12);
+//	printf("%d\n", ret);
+//
+//	return 0;
+//}
+
+//memset 内存设置
+
 int main()
 {
-	int arr1[] = { 1,2,3,4,5 };
-	int arr2[10] = { 0 };
-	//memcpy(arr2, arr1, sizeof(arr1));
-	my_memcpy(arr2, arr1, sizeof(arr1));
-
+	char arr[] = "hello bit";
+	memset(arr, '0', 5);
+	memset(arr + 6, 'x', 3);
+	char arr1[] = "00000";
+	memset(arr1, 49, 5); //49为1的ASCII值
+	printf("%s\n", arr1);
+	//memset 填充内存时是以字节为单位填充的
 	return 0;
 }
