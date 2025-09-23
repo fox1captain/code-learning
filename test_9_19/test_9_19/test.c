@@ -183,22 +183,22 @@ struct S
 	float score;
 };
 
-int main()
-{
-	struct S s = { "zhangsan", 20, 55.5f };
-	struct S tmp = { 0 };
-	char buff[100] = { 0 };
-	//把s中的格式化数据转化成字符串放到buff中
-	sprintf(buff, "%s %d %f", s.name, s.age, s.score);
-
-	printf("字符串输出:%s\n", buff);
-
-	//从字符串buff中获取一个格式化的数据到tmp中
-	sscanf(buff, "%s %d %f", tmp.name, &(tmp.age), &(tmp.score));
-	printf("格式化输出:%s %d %f\n", tmp.name, tmp.age, tmp.score);
-
-	return 0;
-}
+//int main()
+//{
+//	struct S s = { "zhangsan", 20, 55.5f };
+//	struct S tmp = { 0 };
+//	char buff[100] = { 0 };
+//	//把s中的格式化数据转化成字符串放到buff中
+//	sprintf(buff, "%s %d %f", s.name, s.age, s.score);
+//
+//	printf("字符串输出:%s\n", buff);
+//
+//	//从字符串buff中获取一个格式化的数据到tmp中
+//	sscanf(buff, "%s %d %f", tmp.name, &(tmp.age), &(tmp.score));
+//	printf("格式化输出:%s %d %f\n", tmp.name, tmp.age, tmp.score);
+//
+//	return 0;
+//}
 
 
 /*
@@ -212,3 +212,42 @@ sscanf  从一个字符中转化出一个格式化的数据
 sprintf 把一个格式化的数据转化成字符串
 
 */
+
+
+//int main()
+//{
+//	FILE * pFile;
+//	pFile = fopen("example.txt", "wb");
+//	fputs("This is an apple.", pFile);
+//	fseek(pFile, 9, SEEK_SET);
+//	fputs(" sam", pFile);
+//	fclose(pFile);
+//	return 0;
+//}
+
+//int main()
+//{
+//	FILE * pFile;
+//	long size;
+//
+//	pFile = fopen("myfile.txt", "rb");
+//	if (pFile == NULL) perror("Error opening file");
+//	else
+//	{
+//		fseek(pFile, 0, SEEK_END);   // non-portable
+//		size = ftell(pFile);
+//		fclose(pFile);
+//		printf("Size of myfile.txt: %ld bytes.\n", size);
+//	}
+//	return 0;
+//}
+
+int main()
+{
+	int a = 10000;
+	FILE* pf = fopen("test1.txt", "wb");
+	fwrite(&a, 4, 1, pf);
+	fclose(pf);
+	pf = NULL;
+	return 0;
+}
