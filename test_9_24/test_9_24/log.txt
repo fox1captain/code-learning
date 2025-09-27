@@ -1,0 +1,10 @@
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=0
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=1
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=2
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=3
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=4
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=5
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=6
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=7
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=8
+file:d:\code\2025\peng-c\test_9_24\test_9_24\test.c line:28 date:Sep 26 2025 time:10:10:30 i=9
